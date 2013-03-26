@@ -82,6 +82,20 @@ In django pushy/server/config.json
 Usage
 =====
 
+Model requirements
+------------------
+
+django-pushy is designed to work with data exposed by an API. (In our case tastypie).
+Your models need a *get_api_url* method. 
+
+.. code-block:: pycon
+
+    def get_api_url(self):
+        url = reverse('api_dispatch_list', kwargs={'resource_name': 'whatever', 'api_name': 'v1'})
+        return '%s%s/' % (url, self.pk)
+
+
+
 Include the pushy scripts
 -------------------------
 
@@ -95,7 +109,10 @@ In order to use django-pushy you have to inlude it's JavaScript part:
    
    {% pushy_scripts %}
    
-   This will render something like:
+   
+This will render something like:
+
+.. code-block:: html
    
    	<script src="http://localhost:8888/socket.io/socket.io.js"></script>
    	<script type="text/javascript" src="/static/pushy/js/pushy.js"></script>
@@ -130,7 +147,7 @@ Imagine you have something like:
    	
    	this.load = function() {
    
-   		$.get(url, function(data) {
+   		$.get(this.api_url, function(data) {
    			self.local_data = data;
    			self.displayFunction(data);
    		});

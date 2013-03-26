@@ -1,5 +1,7 @@
 if(process.env.DEBUG) {
 	debug = require('debug')('pushy');
+} else {
+	debug = function(){};
 }
 
 var config = require('./config.json');
