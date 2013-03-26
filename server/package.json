@@ -28,7 +28,8 @@
   ],
   "dependencies" : {
     "socket.io": "0.9.x",
-    "redis": "0.8.x"
+    "redis": "0.8.x",
+    "debug": "0.7.x"
   },
   "analyze": false,
   "bundledDependencies": [
