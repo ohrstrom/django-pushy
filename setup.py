@@ -10,7 +10,7 @@ setup(
     url='http://pypi.python.org/pypi/TowelStuff/',
     license='LICENSE.txt',
     description='Django push gateway.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     install_requires=[
         "Django >= 1.4.1",
         "redis >= 2.7.2",
