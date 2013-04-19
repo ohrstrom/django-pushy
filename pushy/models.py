@@ -11,13 +11,12 @@ logger = logging.getLogger(__name__)
 def pushy_post_save(sender, **kwargs):
     rs = redis.StrictRedis()
     obj = kwargs['instance']
-    print obj
+    
     message = {
-               'uuid': obj.uuid,
                'route': obj.get_api_url(),
                'type': 'update'
                }
-    print message
+    logger.debug('Routing message to: %s' % pushy_settings.get_channel())
     rs.publish('%s%s' % (pushy_settings.get_channel(), 'update'), json.dumps(message))
     
 
@@ -25,7 +24,7 @@ def setup_signals():
 
     for model in pushy_settings.get_models().values():
         if not model:
-            logger.error('No model')
+            logger.error('No model to register.. django-pushy will not help too much.')
             continue
         else:
             logger.debug('Registering model: %s' % model)
