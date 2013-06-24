@@ -31,7 +31,7 @@ PushyApp = function() {
 					if(self.debug){
 						console.log('PushyApp - update:', data.route);
 					}
-					self.trigger(data.route);
+					self.trigger(data);
 				};
 
 			});
@@ -52,10 +52,10 @@ PushyApp = function() {
 		});
 	};
 	
-	this.trigger = function(route) {
+	this.trigger = function(data) {
 		for(i in self.subscriptions) {
-			if(self.subscriptions[i].route == route) {
-				self.subscriptions[i].callback();
+			if(self.subscriptions[i].route == data.route) {
+				self.subscriptions[i].callback(data);
 			}
 		};
 	};

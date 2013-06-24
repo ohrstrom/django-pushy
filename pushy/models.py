@@ -3,10 +3,21 @@ from django.db import models
 from django.db.models.signals import post_save
 import redis
 import json
+import time
 
 from pushy import settings as pushy_settings
 
+from multiprocessing import Pool
+
 logger = logging.getLogger(__name__)
+
+pool = Pool(processes=10)
+
+def pushy_publish(channel, key, message):
+    rs = redis.StrictRedis()
+    time.sleep(0.005)
+    rs.publish('%s%s' % (channel, key), json.dumps(message))
+    
 
 def pushy_post_save(sender, **kwargs):
     rs = redis.StrictRedis()
@@ -17,8 +28,18 @@ def pushy_post_save(sender, **kwargs):
                'type': 'update'
                }
     logger.debug('Routing message to: %s' % pushy_settings.get_channel())
-    rs.publish('%s%s' % (pushy_settings.get_channel(), 'update'), json.dumps(message))
     
+    #pushy_publish(pushy_settings.get_channel(), 'update', message)
+    
+    pool.apply_async(pushy_publish(pushy_settings.get_channel(), 'update', message))
+    
+    """
+    
+    
+    print 'SLEEEEEEEEEEEEEEEEEP!'
+    time.sleep(0.5)
+    rs.publish('%s%s' % (pushy_settings.get_channel(), 'update'), json.dumps(message))
+    """
 
 def setup_signals():
 

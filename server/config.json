@@ -1,4 +1,4 @@
 {
-    "port" : 8888,
-    "pattern" : "pushy_*"
+    "port" : 8811,
+    "pattern" : "obp_pushy_*"
 }
