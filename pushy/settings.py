@@ -1,6 +1,6 @@
 import django
 from django.conf import settings
-from django.db.models import get_model
+from django.db.models import get_model, get_app
 
 SETTINGS = getattr(settings, 'PUSHY_SETTINGS', {})
 

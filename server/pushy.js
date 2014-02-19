@@ -6,7 +6,7 @@ if(process.env.DEBUG) {
 
 var config = require('./config.json');
 var io = require('socket.io').listen(config.port);
-var redis = require('redis').createClient();
+var redis = require('redis').createClient(config.redis.port, config.redis.host);
 var winston = require('winston');
 
 var logger = new (winston.Logger)({

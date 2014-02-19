@@ -27,9 +27,23 @@ PushyApp = function() {
 					console.log('PushyApp - push:', data);
 				}
 
+				if(data.type == 'create') {
+					if(self.debug){
+						console.log('PushyApp - create:', data.route);
+					}
+					self.trigger(data);
+				};
+
 				if(data.type == 'update') {
 					if(self.debug){
 						console.log('PushyApp - update:', data.route);
+					}
+					self.trigger(data);
+				};
+
+				if(data.type == 'delete') {
+					if(self.debug){
+						console.log('PushyApp - delete:', data.route);
 					}
 					self.trigger(data);
 				};

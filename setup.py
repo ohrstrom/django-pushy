@@ -7,7 +7,7 @@ setup(
     author_email='ohrstrom@hazelfire.com',
     packages=['pushy',],
     #scripts=[],
-    url='http://pypi.python.org/pypi/TowelStuff/',
+    url='https://github.com/ohrstrom/django-pushy/',
     license='LICENSE.txt',
     description='Django push gateway.',
     long_description=open('README.rst').read(),
